@@ -1,3 +1,15 @@
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+.bar { fill: steelblue; }
+
+</style>
+<body>
+	
+<!-- load the d3.js library -->    	
+<script src="d3/d3.js"></script>
+<script src="simpleD3Slider.js"></script>  
+
 ## Welcome to GitHub Pages
 
 
@@ -43,18 +55,7 @@ Having trouble with Pages? Check out our [documentation](https://help.github.com
 
 ### Data visualisation
 
-```markdown
-<meta charset="utf-8">
-<style> /* set the CSS */
 
-.bar { fill: steelblue; }
-
-</style>
-<body>
-	
-<!-- load the d3.js library -->    	
-<script src="d3/d3.js"></script>
-<script src="simpleD3Slider.js"></script>  
 <script>
 
 // set the dimensions and margins of the graph
