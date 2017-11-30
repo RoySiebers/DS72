@@ -167,6 +167,6 @@ x1 = d3.scaleTime()
 });
 
 </script>
-<div>
+</div>
 </body>
 ### Data visualisation
