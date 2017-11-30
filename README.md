@@ -131,7 +131,7 @@ x1 = d3.scaleTime()
                     .call(d3.axisBottom(x))
                 });//end click function
 d3.select("body").append("button")
-                .text("4 year")
+                .text("5 year")
                 .on("click",function(){
                     //select new data
                     // if (old_data==true) {
@@ -141,7 +141,7 @@ d3.select("body").append("button")
                     //     monthData=data.slice(0,12);
                     //     old_data=true; 
                     // }
-                    count = count +48;
+                    count = count +60;
                     monthData = data.slice(count,(count+12));
                     year = count/12+1900;
                     
