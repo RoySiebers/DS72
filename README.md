@@ -43,7 +43,7 @@ Having trouble with Pages? Check out our [documentation](https://help.github.com
 
 ### Data visualisation
 
-```
+```markdown
 <meta charset="utf-8">
 <style> /* set the CSS */
 
