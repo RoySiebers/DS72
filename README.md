@@ -17,8 +17,7 @@
 
 
 ### Data visualisation
-<body>
-<div>
+
 <script>
 
 // set the dimensions and margins of the graph
@@ -167,6 +166,5 @@ x1 = d3.scaleTime()
 });
 
 </script>
-</div>
-</body>
+
 ### Data visualisation
