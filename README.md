@@ -1,23 +1,15 @@
+<!DOCTYPE html>
 <meta charset="utf-8">
 <style> /* set the CSS */
 
 .bar { fill: steelblue; }
 
 </style>
-
+<body>
 	
 <!-- load the d3.js library -->    	
-<script src="d3/d3.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="simpleD3Slider.js"></script>  
-
-## Welcome to my data visualisation project
-
-
-
-
-
-### Data visualisation
-
 <script>
 
 // set the dimensions and margins of the graph
@@ -86,13 +78,7 @@ x1 = d3.scaleTime()
       .attr("width", x.bandwidth())
       .attr("y", function(d) { return y(d.LandAverageTemperature); });
      
-  var text = svg.append("text")
-        .attr("x", (width / 2))             
-        .attr("y", 20 - (margin.top / 2))
-        .attr("text-anchor", "middle")  
-        .style("font-size", "24px") 
-        .style("text-decoration", "underline")  
-        .text("1900");
+ 
 
   d3.select("body").append("button")
                 .text("change data")
@@ -112,15 +98,121 @@ x1 = d3.scaleTime()
                     if(count/12 >= 115)
                     {
                       count = 0;
+                      monthData = data.slice(count,(count+12));
+                      year = count/12+1900;
+                    }
+
+                   
+                   
+                    //rejoin data
+                    var bar = svg.selectAll(".bar")
+                        .data(eval(monthData));
+
+                    
+                    bar.exit().remove();
+                    bar.enter().append("rect")
+                        .attr("height",0);
+
+                    x.domain(monthData.map(function(d) { return d.dt; }));
+                    y.domain([0, 2+d3.max(monthData, function(d) { return d.LandAverageTemperature; })]);
+                    
+
+                    bar.transition()
+                        .duration(200)
+                        .attr("class", "bar")
+                        .attr("height", function(d) { return height - y(d.LandAverageTemperature); })
+                        .attr("x", function(d) { return x(d.dt); })
+                        .attr("width", x.bandwidth())
+                        .attr("y", function(d) { return y(d.LandAverageTemperature); });
+                    // d3.select("text").exit().remove();      
+                      d3.select("title").text(monthData.map(function(d) { return monthData.dt; }));
+
+                   svg.select(".axis")
+                    .call(d3.axisBottom(x))
+                });//end click function
+d3.select("body").append("button")
+                .text("4 year")
+                .on("click",function(){
+                    //select new data
+                    // if (old_data==true) {
+                    //     monthData=data.slice(12,24);
+                    //     old_data=false;  
+                    // } else   {
+                    //     monthData=data.slice(0,12);
+                    //     old_data=true; 
+                    // }
+                    count = count +48;
+                    monthData = data.slice(count,(count+12));
+                    year = count/12+1900;
+                    
+                    if(year >= 2016)
+                    {
+                      count = 1380;
+                      monthData = data.slice(count,(count+12));
+                  
+                      year = count/12+1900;
+                      console.log(count);
+                      console.log(year);
+                      count = 0;
                     }
 
                     
-                    text
-                      .attr("x", (width / 2))             
-                      .attr("y", 20 - (margin.top / 2))
-                      .attr("text-anchor", "middle")  
-                      .style("font-size", "24px") 
-                      .text(year);
+                   
+                   
+                    //rejoin data
+                    var bar = svg.selectAll(".bar")
+                        .data(eval(monthData));
+
+                    
+                    bar.exit().remove();
+                    bar.enter().append("rect")
+                        .attr("height",0);
+
+                    x.domain(monthData.map(function(d) { return d.dt; }));
+                    y.domain([0, 2+d3.max(monthData, function(d) { return d.LandAverageTemperature; })]);
+                    
+
+                    bar.transition()
+                        .duration(200)
+                        .attr("class", "bar")
+                        .attr("height", function(d) { return height - y(d.LandAverageTemperature); })
+                        .attr("x", function(d) { return x(d.dt); })
+                        .attr("width", x.bandwidth())
+                        .attr("y", function(d) { return y(d.LandAverageTemperature); });
+                    // d3.select("text").exit().remove();      
+                      d3.select("title").text(monthData.map(function(d) { return monthData.dt; }));
+
+                   svg.select(".axis")
+                    .call(d3.axisBottom(x))
+                });//end click function
+d3.select("body").append("button")
+                .text("10 year")
+                .on("click",function(){
+                    //select new data
+                    // if (old_data==true) {
+                    //     monthData=data.slice(12,24);
+                    //     old_data=false;  
+                    // } else   {
+                    //     monthData=data.slice(0,12);
+                    //     old_data=true; 
+                    // }
+                    count = count +120;
+                    monthData = data.slice(count,(count+12));
+                    year = count/12+1900;
+                    
+                    if(year >= 2016)
+                    {
+                      count = 1380;
+                      monthData = data.slice(count,(count+12));
+                  
+                      year = count/12+1900;
+                      console.log(count);
+                      console.log(year);
+                      count = 0;
+                    }
+
+                    
+                   
                    
                     //rejoin data
                     var bar = svg.selectAll(".bar")
@@ -149,6 +241,7 @@ x1 = d3.scaleTime()
                     .call(d3.axisBottom(x))
                 });//end click function
 
+
   
 
   // add the x Axis
@@ -166,5 +259,4 @@ x1 = d3.scaleTime()
 });
 
 </script>
-
-### Data visualisation
+</body>
