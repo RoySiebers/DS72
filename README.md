@@ -11,7 +11,7 @@
 .bar { fill: steelblue; }
 
 </style>
-<body>
+
 	
 <!-- load the d3.js library -->    	
 <script src="d3/d3.js"></script>
@@ -164,4 +164,4 @@ x1 = d3.scaleTime()
 });
 
 </script>
-</body>
+
