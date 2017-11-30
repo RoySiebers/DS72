@@ -4,7 +4,7 @@
 .bar { fill: steelblue; }
 
 </style>
-<body>
+
 	
 <!-- load the d3.js library -->    	
 <script src="d3/d3.js"></script>
@@ -54,8 +54,7 @@ Having trouble with Pages? Check out our [documentation](https://help.github.com
 
 
 ### Data visualisation
-
-
+<body>
 <script>
 
 // set the dimensions and margins of the graph
