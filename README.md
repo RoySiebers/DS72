@@ -18,7 +18,9 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     height = 500 - margin.top - margin.bottom;
 var monthData
 var x1
+var timer
 var testDate
+var interval
 // set the ranges
 var x = d3.scaleBand()
           .range([0, width])
@@ -30,6 +32,7 @@ var y = d3.scaleLinear()
 
 var count = 0;
 var year = 0;
+timer = 0;
 // append the svg object to the body of the page
 // append a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
@@ -81,7 +84,67 @@ x1 = d3.scaleTime()
  
 
   d3.select("body").append("button")
-                .text("change data")
+                .text("start")
+                .on("click",function(){
+                  if(timer == 0)
+                    {
+                      timer = 200
+                    }
+                  interval = window.setInterval(function() {
+                    
+                    
+                    count = count +12;
+                    monthData = data.slice(count,(count+12));
+                    year = count/12+1900;
+                    console.log(year);
+                    if(count/12 >= 115)
+                    {
+                      count = 0;
+                      monthData = data.slice(count,(count+12));
+                      year = count/12+1900;
+                    }
+
+                   
+                   
+                    //rejoin data
+                    var bar = svg.selectAll(".bar")
+                        .data(eval(monthData));
+
+                    
+                    bar.exit().remove();
+                    bar.enter().append("rect")
+                        .attr("height",0);
+
+                    x.domain(monthData.map(function(d) { return d.dt; }));
+                    y.domain([0, 2+d3.max(monthData, function(d) { return d.LandAverageTemperature; })]);
+                    
+
+                    bar.transition()
+                        .duration(300)
+                        .attr("class", "bar")
+                        .attr("height", function(d) { return height - y(d.LandAverageTemperature); })
+                        .attr("x", function(d) { return x(d.dt); })
+                        .attr("width", x.bandwidth())
+                        .attr("y", function(d) { return y(d.LandAverageTemperature); });
+                    // d3.select("text").exit().remove();      
+                      d3.select("title").text(monthData.map(function(d) { return monthData.dt; }));
+
+                   svg.select(".axis")
+                    .call(d3.axisBottom(x))
+                },timer)});//end click function
+
+d3.select("body").append("button")
+                .text("Stop")
+                .on("click",function(){
+                  if(timer == 200)
+                  {
+                    window.clearInterval(interval);
+                    this.disable = true;
+                  }
+
+                });//end click function
+d3.select("body").append("button")
+                .text("1 year")
                 .on("click",function(){
                     //select new data
                     // if (old_data==true) {
@@ -131,7 +194,7 @@ x1 = d3.scaleTime()
                     .call(d3.axisBottom(x))
                 });//end click function
 d3.select("body").append("button")
-                .text("5 year")
+                .text("4 year")
                 .on("click",function(){
                     //select new data
                     // if (old_data==true) {
@@ -141,7 +204,7 @@ d3.select("body").append("button")
                     //     monthData=data.slice(0,12);
                     //     old_data=true; 
                     // }
-                    count = count +60;
+                    count = count +48;
                     monthData = data.slice(count,(count+12));
                     year = count/12+1900;
                     
