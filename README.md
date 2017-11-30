@@ -103,8 +103,8 @@ x1 = d3.scaleTime()
                     //     monthData=data.slice(0,12);
                     //     old_data=true; 
                     // }
-                    count = count +12;
-                    monthData = data.slice(count,(count+12));
+                    count = count +120;
+                    monthData = data.slice(count,(count+120));
                     year = count/12+1900;
                     console.log(year);
                     if(count/12 >= 115)
@@ -164,4 +164,5 @@ x1 = d3.scaleTime()
 });
 
 </script>
+
 
