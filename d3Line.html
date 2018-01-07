@@ -80,34 +80,71 @@ d3.csv("YearsTemp.csv", function(d) {
       .attr("text-anchor", "end")
       .text("Temp");
 
-  g.append("path")
-      .datum(data)
-      .attr("fill", "none")
+
+
+  var path = g.append("path")
+      .attr("d", line(data))
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", "3")
+      .attr("fill", "none");
+ var totalLength = path.node().getTotalLength();
+
+ path
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+        .duration(2000)
+        .attr("stroke-dashoffset", 0);
+
+
+
+var path2 = g.append("path")
+      .attr("d", line2(data))
       .attr("stroke", "black")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1.5)
-      .attr("d", line);
+      .attr("stroke-width", "1")
+      .attr("fill", "none");
+ var totalLength2 = path2.node().getTotalLength();
 
-  g.append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1)
-      .attr("class","line2")
-      .attr("d", line2);
+ path2
+      .attr("stroke-dasharray", totalLength2 + " " + totalLength2)
+      .attr("stroke-dashoffset", totalLength2)
+      .transition()
+        .duration(2000)
+        .attr("stroke-dashoffset", 0);
 
-  g.append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1.1)
-      .attr("class","line3")
-      .attr("d", line3);
+var path3 = g.append("path")
+      .attr("d", line3(data))
+      .attr("stroke", "black")
+      .attr("stroke-width", "1")
+      .attr("fill", "none");
+var totalLength3 = path3.node().getTotalLength();
+
+ path3
+      .attr("stroke-dasharray", totalLength3 + " " + totalLength3)
+      .attr("stroke-dashoffset", totalLength3)
+      .transition()
+        .duration(2000)
+        .attr("stroke-dashoffset", 0);
+
+  // g.append("path")
+  //     .datum(data)
+  //     .attr("fill", "none")
+  //     .attr("stroke", "steelblue")
+  //     .attr("stroke-linejoin", "round")
+  //     .attr("stroke-linecap", "round")
+  //     .attr("stroke-width", 1)
+  //     .attr("class","line2")
+  //     .attr("d", line2);
+
+  // g.append("path")
+  //     .datum(data)
+  //     .attr("fill", "none")
+  //     .attr("stroke", "steelblue")
+  //     .attr("stroke-linejoin", "round")
+  //     .attr("stroke-linecap", "round")
+  //     .attr("stroke-width", 1.1)
+  //     .attr("class","line3")
+  //     .attr("d", line3);
 
 });
 

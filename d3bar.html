@@ -103,8 +103,8 @@ d3.csv("AugGlobalTemp.csv", function(error, data) {
   var bar2 = svg.selectAll("g.bar2")
       .data(data)
     .enter().append("g")
-      .attr("class", "bar2")
-      .attr("transform", function(d) { return "translate(0," + y(d.Country) + ")"; });
+    .attr("class", "bar2")
+    .attr("transform", function(d) { return "translate(0," + y(d.Country) + ")"; });
 
  
 

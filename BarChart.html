@@ -123,25 +123,10 @@ x1 = d3.scaleTime()
   
 
 
-  svg.selectAll(".bar")
-      .data(monthData)
-    .enter().append("rect").transition().duration(0)
 
-      .attr("class", "bar")
-      .attr("height", function(d) { return height - y(d.LandAverageTemperature); })
-      .attr("x",function(d) { return x(d.dt); })
-      .attr("width", x.bandwidth())
-      .attr("y", function(d) { return y(d.LandAverageTemperature); })
+      
 
-  svg.selectAll(".bar2")
-                    .data(data_1912)
-                  .enter().append("rect")
-
-                    .attr("class", "bar2")
-                    .attr("height", function(d) { return height - y(d.LandAverageTemperature); })
-                    .attr("x",function(d) { return x(d.dt); })
-                    .attr("width", x.bandwidth())
-                    .attr("y", function(d) { return y(d.LandAverageTemperature); })    
+  
   
 
   d3.select(".divButton").append("button")
@@ -153,20 +138,29 @@ x1 = d3.scaleTime()
                     {
                       timer = 200
                     }
-
+                  svg.selectAll(".bar")
+                    .data(monthData)
+                    .enter().append("rect")
+                      .attr("class", "bar")
+                      .attr("x",function(d) { return x(d.dt); })
+                      .attr("width", x.bandwidth())
+                      .attr("y", function(d) { return y(d.LandAverageTemperature); }).transition().duration(200)
+                      .attr("height", function(d) { return height - y(d.LandAverageTemperature); })
+      
                   interval = window.setInterval(function() {
                   
                   
 
                   svg.selectAll(".bar2")
                     .data(data_1912)
-                  .enter().append("rect").transition().duration(0)
+                  .enter().append("rect")
 
                     .attr("class", "bar2")
-                    .attr("height", function(d) { return height - y(d.LandAverageTemperature); })
+                  
                     .attr("x",function(d) { return x(d.dt); })
                     .attr("width", x.bandwidth())
-                    .attr("y", function(d) { return y(d.LandAverageTemperature); })
+                    .attr("y", function(d) { return y(d.LandAverageTemperature); }).transition().duration(200)
+                     .attr("height", function(d) { return height - y(d.LandAverageTemperature); })
 
 
 
