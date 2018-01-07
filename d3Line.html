@@ -102,7 +102,9 @@ var path2 = g.append("path")
       .attr("d", line2(data))
       .attr("stroke", "black")
       .attr("stroke-width", "1")
-      .attr("fill", "none");
+      .attr("fill", "none")
+      .attr("opacity",0.6);
+
  var totalLength2 = path2.node().getTotalLength();
 
  path2
@@ -116,7 +118,8 @@ var path3 = g.append("path")
       .attr("d", line3(data))
       .attr("stroke", "black")
       .attr("stroke-width", "1")
-      .attr("fill", "none");
+      .attr("fill", "none")
+      .attr("opacity",0.6);
 var totalLength3 = path3.node().getTotalLength();
 
  path3
