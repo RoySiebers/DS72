@@ -117,8 +117,8 @@
             function setColours(min, max){
                 highestValue=0;
                 var paletteScale = d3.scale.linear()
-                    .domain([35,0,-35])
-                    .range(["#FF0000", "#009933" , "#0000FF"]);
+                    .domain([30,20,7,0,-10,-28])
+                    .range(["#FF0040","#FF1e00","#FFb400","#00ff5c","#00e4ff","#0032ff"]);
                 
                     console.log('Did a thing');
                 updateMap(paletteScale,tempByCountry);
