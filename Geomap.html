@@ -37,9 +37,10 @@
             var set;
             var highestValue;
 
+
             var paletteScale = d3.scale.linear()
-                    .domain([-28,30])
-                    .range(["#ffe6a3","#4f0701"]);
+                    .domain([30,20,7,0,-10,-28])
+                    .range(["#FF0040","#FF1e00","#FFb400","#00ff5c","#00e4ff","#0032ff"]);
            
 
             var map = new Datamap({element: document.getElementById('map'),
@@ -116,8 +117,9 @@
             function setColours(min, max){
                 highestValue=0;
                 var paletteScale = d3.scale.linear()
-                    .domain([-30,35])
-                    .range(["#ffe6a3","#4f0701"]);
+                    .domain([35,0,-35])
+                    .range(["#FF0000", "#009933" , "#0000FF"]);
+                
                     console.log('Did a thing');
                 updateMap(paletteScale,tempByCountry);
 
