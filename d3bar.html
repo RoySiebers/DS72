@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+.divText {
+    font: 15px arial, sans-serif;
+
+}
+.divNextPage{
+  font: 15px arial, sans-serif;
+}
+.bar rect {
+  fill:#005271;
+}
+
+.bar text.value {
+  fill: white;
+}
+
+.bar2 rect {
+  fill:black;
+  opacity: 0.4;
+}
+
+.bar2 text.value {
+  fill: white;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.axis path {
+  fill: none;
+}
+
+.x.axis line {
+  stroke: #fff;
+  stroke-opacity: .8;
+}
+
+.y.axis path {
+  stroke: black;
+}
+svg{
+
+  float: left;
+}
+
+</style>
+<body>
+<script src="D3_3/d3.js"></script>
+<script>
+
+var m = [10, 120, 60, 200],
+    w = 860 - m[1] - m[3],
+    h = 3400 - m[0] - m[2];
+
+var format = d3.format(",.0f");
+
+var x = d3.scale.linear().range([0, w]),
+    y = d3.scale.ordinal().rangeRoundBands([0, h+3], .1);
+
+var xAxis = d3.svg.axis().scale(x).orient("top").tickSize(-h),
+    yAxis = d3.svg.axis().scale(y).orient("left").tickSize(0);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", w + m[1] + m[3])
+    .attr("height", h + m[0] + m[2])
+  .append("g")
+    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+var avarage = 0;
+d3.csv("AugGlobalTemp.csv", function(data) {
+                tempByCountry = data;
+            });
+d3.csv("AugGlobalTemp.csv", function(data) {
+                tempByCountry2 = data;
+            });
+d3.csv("AugGlobalTemp.csv", function(error, data) {
+  if (error) throw error;
+
+  // Parse numbers, and sort by value.
+  data.forEach(function(d) { d.AverageTemperature = +d.AverageTemperature; 
+  avarage = avarage + d.AverageTemperature;
+ 
+ 
+  });
+  data.sort(function(a, b) { return b.AverageTemperature - a.AverageTemperature; });
+
+  // Set the scale domain.
+  x.domain([-34, 30]);
+  y.domain(data.map(function(d) { return d.Country; }));
+
+  var bar = svg.selectAll("g.bar")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "bar")
+      .attr("transform", function(d) { return "translate(0," + y(d.Country) + ")"; });
+
+  var bar2 = svg.selectAll("g.bar2")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "bar2")
+      .attr("transform", function(d) { return "translate(0," + y(d.Country) + ")"; });
+
+ 
+
+  bar.append("rect")
+      .attr("width", function(d) { return x(d.AverageTemperature); })
+      .attr("height", y.rangeBand());
+
+  bar2.append("rect")
+      .attr("width", function(d) { return x(d.Aug1912); })
+      .attr("height", y.rangeBand());
+
+
+  bar.append("text")
+      .attr("class", "value")
+      .attr("x", function(d) { return x(d.AverageTemperature); })
+      .attr("y", y.rangeBand() / 2)
+      .attr("dx", -3)
+      .attr("dy", ".35em")
+      .attr("text-anchor", "end")
+      .text(function(d) { return Number(d.diff)});
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+});
+// d3.csv("AugGlobalTemp.csv", function(error, data) {
+//   if (error) throw error;
+
+//   // Parse numbers, and sort by value.
+//   tempByCountry2.forEach(function(d) { d.Aug1912 = +d.Aug1912; 
+//   avarage = avarage + d.Aug1912;
+ 
+  
+//   });
+//   tempByCountry2.sort(function(a, b) { return b.Aug1912 - a.Aug1912; });
+
+//   // Set the scale domain.
+//   x.domain([-34, 30]);
+
+//   y.domain(tempByCountry2.map(function(d) { return d.Country; }));
+
+//   var bar2 = svg.selectAll("g.bar2")
+//       .data(data)
+//     .enter().append("g")
+//       .attr("class", "bar2")
+//       .attr("transform", function(d) { return "translate(0," + y(d.Country) + ")"; });
+
+  
+//   bar2.append("rect")
+//       .attr("width", function(d) { return x(d.Aug1912); })
+//       .attr("height", y.rangeBand());
+
+  
+
+//   svg.append("g")
+//       .attr("class", "x axis")
+//       .call(xAxis);
+
+//   svg.append("g")
+//       .attr("class", "y axis")
+//       .call(yAxis);
+// });
+
+</script>
+<div class ="divText">
+  <h1>Bar Chart</h1>
+  <p>In this chart the global land average temperature data of the countries from 2 points of data have been visualized.</p>
+  <p>On the left we can see the data of the year 1900, this will be visable throughout the animation to show the increase and decrease of the temperature as comparison.</p>
+  <p>Click on start to start the animation, click on stop to stop the animation.</p>
+  <p>It is also possible to add years manually but when doing this stop the animation of wait for it to finish please.</p>
+</div>
+<div class="divButton"> 
+</div>
+<br>
+<div class = "divNextPage"> 
+ <p><a href="BarChart.html" >Next Chart</a></p>
+</div>
+</body>
