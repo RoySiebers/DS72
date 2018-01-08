@@ -17,7 +17,7 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 var avarage = 0;
-d3.csv("AugGlobalTemp.csv", function(data) {
+d3.csv("Aug1912.csv", function(data) {
                 tempByCountry = data;
             });
 d3.csv("AugGlobalTemp.csv", function(data) {
@@ -30,15 +30,14 @@ d3.csv("AugGlobalTemp.csv", function(error, data) {
   data.forEach(function(d) { 
     d.AverageTemperature = +d.AverageTemperature; 
   avarage = avarage + d.AverageTemperature;
-  d.Aug1912 = +d.Aug1912;
-  console.log(d.Aug1912);
+
  
  
   });
   data.sort(function(a, b) { return b.AverageTemperature - a.AverageTemperature; });
 
   // Set the scale domain.
-  x.domain([-34, 30]);
+  x.domain([-10, 35]);
   y.domain(data.map(function(d) { return d.Country; }));
 
   var bar = svg.selectAll("g.bar")
@@ -48,7 +47,7 @@ d3.csv("AugGlobalTemp.csv", function(error, data) {
       .attr("transform", function(d) { return "translate(0," + y(d.Country) + ")"; });
 
   var bar2 = svg.selectAll("g.bar2")
-      .data(data)
+      .data(tempByCountry)
     .enter().append("g")
     .attr("class", "bar2")
     .attr("transform", function(d) { return "translate(0," + y(d.Country) + ")"; });
@@ -60,24 +59,24 @@ d3.csv("AugGlobalTemp.csv", function(error, data) {
       .attr("height", y.rangeBand());
 
   bar2.append("rect")
-      .attr("width", function(d) { return x(d.Aug1912); })
+      .attr("width", function(tempByCountry) { return x(tempByCountry.AverageTemperature); })
       .attr("height", y.rangeBand());
 
 
-  bar.append("text")
-      .attr("class", "value")
-      .attr("x", function(d) { return x(d.AverageTemperature); })
-      .attr("y", y.rangeBand() / 2)
-      .attr("dx", -3)
-      .attr("dy", ".35em")
-      .attr("text-anchor", "end")
-      .text(function(d) { return Number(d.diff)});
+  // bar.append("text")
+  //     .attr("class", "value")
+  //     .attr("x", function(d) { return x(d.AverageTemperature); })
+  //     .attr("y", y.rangeBand() / 2)
+  //     .attr("dx", -3)
+  //     .attr("dy", ".35em")
+  //     .attr("text-anchor", "end")
+  //     .text(function(d) { return Number(d.diff)});
 
-  svg.append("g")
+  svg.append("g").transition().duration(2000)
       .attr("class", "x axis")
       .call(xAxis);
 
-  svg.append("g")
+  svg.append("g").transition().duration(2000)
       .attr("class", "y axis")
       .call(yAxis);
 });
